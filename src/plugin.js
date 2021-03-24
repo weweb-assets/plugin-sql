@@ -21,7 +21,7 @@ export default {
         /* wwEditor:start */
         const plugin = wwLib.wwPlugins.pluginSql;
         plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
-        if (!plugin.settings.privateData.requests) this.$set(plugin.settings.privateData, 'requests', []);
+        if (!plugin.settings.privateData.requests) plugin.settings.privateData.requests = [];
         if (plugin.isNew && !plugin.settings.privateData.requests.length) {
             this.sidebarButton();
         }
