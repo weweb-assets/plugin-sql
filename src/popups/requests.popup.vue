@@ -1,6 +1,6 @@
 <template>
     <div class="ww-popup-sql-requests">
-        <button class="sql-requests__all ww-editor-button -primary" @click="addRequest">Add REQUEST</button>
+        <button class="sql-requests__all ww-editor-button -primary" @click="addRequest">Add request</button>
         <div class="sql-requests__row" v-for="(request, index) in settings.privateData.requests" :key="index">
             <div class="paragraph-m">{{ request.name || request.url }}</div>
             <button class="ww-editor-button -secondary -small m-auto-left" @click="editRequest(index, request)">
@@ -45,7 +45,7 @@ export default {
         async addRequest() {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'REST_REQUEST_ADD_REQUEST_POPUP',
+                    firstPage: 'SQL_ADD_REQUEST_POPUP',
                 });
                 this.settings.privateData.requests.push(result.request);
             } catch (err) {
@@ -55,7 +55,7 @@ export default {
         async editRequest(index, request) {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'REST_REQUEST_EDIT_REQUEST_POPUP',
+                    firstPage: 'SQL_EDIT_REQUEST_POPUP',
                     data: { request },
                 });
                 this.settings.privateData.requests.splice(index, 1, result.request);

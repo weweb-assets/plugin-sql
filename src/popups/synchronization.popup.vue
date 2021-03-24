@@ -19,7 +19,7 @@
                 class="ww-editor-button -primary -green -small m-left"
                 @click="sync(request)"
             >
-                <div v-if="!isRequestFetching(request)">Synchronize REQUEST</div>
+                <div v-if="!isRequestFetching(request)">Synchronize request</div>
                 <div v-else>Fetching...</div>
             </button>
         </div>
