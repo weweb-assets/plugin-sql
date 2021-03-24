@@ -102,7 +102,7 @@ export default {
         async beforeNext() {
             this.options.setLoadingStatus(true);
             try {
-                const plugin = wwLib.wwPlugins.pluginRestRequest;
+                const plugin = wwLib.wwPlugins.pluginSql;
                 plugin.settings = await wwLib.wwPlugin.saveSettings(
                     plugin.id,
                     plugin.settings.id,
@@ -117,7 +117,7 @@ export default {
                 );
                 deletedRequests.forEach(request => wwLib.wwPlugin.deleteCmsDataSet(request.id));
 
-                wwLib.wwPlugins.pluginRestRequest.settings = plugin.settings;
+                wwLib.wwPlugins.pluginSql.settings = plugin.settings;
                 this.options.data.settings = plugin.settings;
             } catch (err) {
                 wwLib.wwLog.error(err);

@@ -125,7 +125,7 @@ export default {
             ],
             request: {
                 id: wwLib.wwUtils.getUid(),
-                client: 'pg',
+                client: undefined,
                 host: undefined,
                 port: undefined,
                 user: undefined,
@@ -138,26 +138,31 @@ export default {
         };
     },
     watch: {
-        isSetup() {
-            this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
-        },
-        'request.client': {
+        isSetup: {
             immediate: true,
             handler() {
-                switch (this.request.client) {
-                    case 'pg':
-                        return (this.request.port = 5432);
-                    case 'pg-redshift':
-                        return (this.request.port = 5439);
-                    case 'mssql':
-                        return (this.request.port = 1433);
-                    case 'mysql':
-                    case 'mysql-mariadb':
-                        return (this.request.port = 3306);
-                    case 'oracledb':
-                        return (this.request.port = 1521);
-                }
+                this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
             },
+        },
+        'request.client'() {
+            switch (this.request.client) {
+                case 'pg':
+                    this.$set(this.request, 'port', 5432);
+                    break;
+                case 'pg-redshift':
+                    this.$set(this.request, 'port', 5439);
+                    break;
+                case 'mssql':
+                    this.$set(this.request, 'port', 1433);
+                    break;
+                case 'mysql':
+                case 'mysql-mariadb':
+                    this.$set(this.request, 'port', 3306);
+                    break;
+                case 'oracledb':
+                    this.$set(this.request, 'port', 1521);
+                    break;
+            }
         },
     },
     computed: {
@@ -182,6 +187,7 @@ export default {
     },
     created() {
         this.request = this.options.data.request || this.request;
+        if (!this.request.client) this.request.client = 'pg';
         this.options.result.request = this.request;
         this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
     },
