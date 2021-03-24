@@ -10,7 +10,7 @@ export default {
     settings: {
         data: {},
         privateData: {
-            APIs: [],
+            requests: [],
         },
     },
     /* wwEditor:end */
@@ -21,8 +21,8 @@ export default {
         /* wwEditor:start */
         const plugin = wwLib.wwPlugins.pluginSql;
         plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
-        if (!plugin.settings.privateData.APIs) plugin.settings.privateData.APIs = [];
-        if (plugin.isNew && !plugin.settings.privateData.APIs.length) {
+        if (!plugin.settings.privateData.requests) plugin.settings.privateData.requests = [];
+        if (plugin.isNew && !plugin.settings.privateData.requests.length) {
             this.sidebarButton();
         }
         /* wwEditor:end */
@@ -31,13 +31,13 @@ export default {
     /*=============================================m_ÔÔ_m=============================================\
         SYNCHRONIZE
     \================================================================================================*/
-    async sync(api) {
+    async sync(request) {
         try {
-            await wwLib.wwPlugin.saveCmsDataSet(this.settings.id, api.id, api.name, api.displayBy, 'Sql');
+            await wwLib.wwPlugin.saveCmsDataSet(this.settings.id, request.id, request.name, request.displayBy, 'Sql');
 
             wwLib.wwNotification.open({
                 text: {
-                    en: `Api "${api.name}" succesfully fetched`,
+                    en: `Request "${request.name}" succesfully fetched`,
                 },
                 color: 'green',
             });
@@ -53,7 +53,7 @@ export default {
         }
     },
     async syncAll() {
-        for (const api of this.settings.privateData.APIs) await this.sync(api);
+        for (const request of this.settings.privateData.requests) await this.sync(request);
     },
     /*=============================================m_ÔÔ_m=============================================\
         SIDEBAR POPUP
@@ -62,9 +62,9 @@ export default {
         try {
             const { id, settings, isNew } = wwLib.wwPlugins.pluginSql;
             const isSetup = !isNew;
-            const isFirstTime = !settings.privateData.APIs.length;
+            const isFirstTime = !settings.privateData.requests.length;
             await wwLib.wwPopups.open({
-                firstPage: isSetup ? 'SQL_POPUP' : 'SQL_APIS_POPUP',
+                firstPage: isSetup ? 'SQL_POPUP' : 'SQL_REQUESTS_POPUP',
                 data: {
                     isFirstTime,
                     pluginId: id,

@@ -10,9 +10,9 @@
             <div class="sql-settings__properties-name paragraph-s">Webhooks</div>
             <wwEditorIcon class="sql-settings__properties-icon -right" name="chevron-forward" />
         </div>
-        <div class="sql-settings__properties" @click="next('SQL_APIS_POPUP')">
+        <div class="sql-settings__properties" @click="next('SQL_REQUESTS_POPUP')">
             <wwEditorIcon class="sql-settings__properties-icon -left" name="bind" />
-            <div class="sql-settings__properties-name paragraph-s">APIs</div>
+            <div class="sql-settings__properties-name paragraph-s">Requests</div>
             <wwEditorIcon class="sql-settings__properties-icon -right" name="chevron-forward" />
         </div>
         <a class="sql-settings__properties" href="//developer.weweb.io/" target="_blank">

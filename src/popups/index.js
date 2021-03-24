@@ -1,12 +1,12 @@
 import settingsPopup from './settings.popup.vue';
-import apisPopup from './apis.popup.vue';
-import apiPopup from './api.popup.vue';
+import requestsPopup from './requests.popup.vue';
+import requestPopup from './request.popup.vue';
 import synchronizationPopup from './synchronization.popup.vue';
 import webhooksPopup from './webhooks.popup.vue';
 
 wwLib.wwPopups.addPopup('sqlSettingsPopup', settingsPopup);
-wwLib.wwPopups.addPopup('sqlApisPopup', apisPopup);
-wwLib.wwPopups.addPopup('sqlApiPopup', apiPopup);
+wwLib.wwPopups.addPopup('sqlRequestsPopup', requestsPopup);
+wwLib.wwPopups.addPopup('sqlRequestPopup', requestPopup);
 wwLib.wwPopups.addPopup('sqlSynchronizationPopup', synchronizationPopup);
 wwLib.wwPopups.addPopup('sqlWebhooksPopup', webhooksPopup);
 
@@ -19,53 +19,53 @@ wwLib.wwPopups.addStory('SQL_POPUP', {
     size: wwLib.wwPopups.SIZES.MEDIUM,
 });
 
-wwLib.wwPopups.addStory('SQL_APIS_POPUP', {
+wwLib.wwPopups.addStory('SQL_REQUESTS_POPUP', {
     title: {
-        en: 'SQL - APIs',
-        fr: 'SQL - APIs',
+        en: 'SQL - requests',
+        fr: 'SQL - requests',
     },
-    type: 'sqlApisPopup',
+    type: 'sqlRequestsPopup',
     size: wwLib.wwPopups.SIZES.MEDIUM,
     buttons: {
         SAVE: {
             text: {
-                en: 'Save APIs',
-                fr: 'Enregistrer les APIs',
+                en: 'Save requests',
+                fr: 'Enregistrer les requests',
             },
             next: 'SQL_SYNCHRONIZATION_POPUP',
         },
     },
 });
 
-wwLib.wwPopups.addStory('SQL_ADD_API_POPUP', {
+wwLib.wwPopups.addStory('SQL_ADD_REQUEST_POPUP', {
     title: {
-        en: 'SQL - Add API',
-        fr: 'SQL - Ajouter une API',
+        en: 'SQL - Add request',
+        fr: 'SQL - Ajouter une requete',
     },
-    type: 'sqlApiPopup',
+    type: 'sqlRequestPopup',
     size: wwLib.wwPopups.SIZES.MEDIUM,
     buttons: {
         SAVE: {
             text: {
-                en: 'Add API',
-                fr: 'Ajouter une API',
+                en: 'Add request',
+                fr: 'Ajouter une requete',
             },
         },
     },
 });
 
-wwLib.wwPopups.addStory('SQL_EDIT_API_POPUP', {
+wwLib.wwPopups.addStory('SQL_EDIT_REQUEST_POPUP', {
     title: {
-        en: 'SQL - Edit API',
-        fr: "SQL - Editer l'API",
+        en: 'SQL - Edit request',
+        fr: 'SQL - Editer la requete',
     },
-    type: 'sqlApiPopup',
+    type: 'sqlRequestPopup',
     size: wwLib.wwPopups.SIZES.MEDIUM,
     buttons: {
         SAVE: {
             text: {
-                en: 'Edit API',
-                fr: "Editer l'API",
+                en: 'Edit request',
+                fr: 'Editer la requete',
             },
         },
     },

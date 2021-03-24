@@ -1,8 +1,8 @@
 <template>
     <div class="ww-popup-sql-webhooks">
-        <div class="sql-webhooks__row" v-for="(api, index) in settings.privateData.APIs" :key="index">
-            <div class="paragraph-m">{{ api.name || api.url }}</div>
-            <button class="ww-editor-button -primary -green -small m-auto-left" @click="copyUrl(api)">
+        <div class="sql-webhooks__row" v-for="(request, index) in settings.privateData.requests" :key="index">
+            <div class="paragraph-m">{{ request.name || request.url }}</div>
+            <button class="ww-editor-button -primary -green -small m-auto-left" @click="copyUrl(request)">
                 <wwEditorIcon class="ww-editor-button-icon -left" name="copy-paste" small />
                 Copy url
             </button>
@@ -29,12 +29,12 @@ export default {
         };
     },
     methods: {
-        async copyUrl(api) {
+        async copyUrl(request) {
             const designId = wwLib.wwWebsiteData.getInfo().id;
             await wwLib
                 .getManagerWindow()
                 .navigator.clipboard.writeText(
-                    `https://data.weweb.io/designs/${designId}/cms_data_set/${api.id}/callback`
+                    `https://data.weweb.io/designs/${designId}/cms_data_set/${request.id}/callback`
                 );
             wwLib.wwNotification.open({
                 text: {

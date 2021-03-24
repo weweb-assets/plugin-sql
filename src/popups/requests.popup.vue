@@ -1,10 +1,12 @@
 <template>
-    <div class="ww-popup-sql-apis">
-        <button class="sql-apis__all ww-editor-button -primary" @click="addApi">Add API</button>
-        <div class="sql-apis__row" v-for="(api, index) in settings.privateData.APIs" :key="index">
-            <div class="paragraph-m">{{ api.name }}</div>
-            <button class="ww-editor-button -secondary -small m-auto-left" @click="editApi(index, api)">Edit</button>
-            <div class="sql-apis__button-delete m-left" @click="deleteApi(index)">
+    <div class="ww-popup-sql-requests">
+        <button class="sql-requests__all ww-editor-button -primary" @click="addRequest">Add REQUEST</button>
+        <div class="sql-requests__row" v-for="(request, index) in settings.privateData.requests" :key="index">
+            <div class="paragraph-m">{{ request.name || request.url }}</div>
+            <button class="ww-editor-button -secondary -small m-auto-left" @click="editRequest(index, request)">
+                Edit
+            </button>
+            <div class="sql-requests__button-delete m-left" @click="deleteRequest(index)">
                 <wwEditorIcon name="delete" small />
             </div>
         </div>
@@ -13,7 +15,7 @@
 
 <script>
 export default {
-    name: 'ApisPopup',
+    name: 'RequestsPopup',
     props: {
         options: {
             type: Object,
@@ -36,32 +38,32 @@ export default {
     },
     computed: {
         isSetup() {
-            return this.settings.privateData.APIs && this.settings.privateData.APIs.length;
+            return this.settings.privateData.requests && this.settings.privateData.requests.length;
         },
     },
     methods: {
-        async addApi() {
+        async addRequest() {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SQL_ADD_API_POPUP',
+                    firstPage: 'REST_REQUEST_ADD_REQUEST_POPUP',
                 });
-                this.settings.privateData.APIs.push(result.api);
+                this.settings.privateData.requests.push(result.request);
             } catch (err) {
                 wwLib.wwLog.error(err);
             }
         },
-        async editApi(index, api) {
+        async editRequest(index, request) {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SQL_EDIT_API_POPUP',
-                    data: { api },
+                    firstPage: 'REST_REQUEST_EDIT_REQUEST_POPUP',
+                    data: { request },
                 });
-                this.settings.privateData.APIs.splice(index, 1, result.api);
+                this.settings.privateData.requests.splice(index, 1, result.request);
             } catch (err) {
                 wwLib.wwLog.error(err);
             }
         },
-        async deleteApi(index) {
+        async deleteRequest(index) {
             const confirm = await wwLib.wwModals.open({
                 title: {
                     en: 'Delete data source?',
@@ -95,12 +97,12 @@ export default {
                 ],
             });
             if (!confirm) return;
-            this.settings.privateData.APIs.splice(index, 1);
+            this.settings.privateData.requests.splice(index, 1);
         },
         async beforeNext() {
             this.options.setLoadingStatus(true);
             try {
-                const plugin = wwLib.wwPlugins.pluginSql;
+                const plugin = wwLib.wwPlugins.pluginRestRequest;
                 plugin.settings = await wwLib.wwPlugin.saveSettings(
                     plugin.id,
                     plugin.settings.id,
@@ -108,12 +110,14 @@ export default {
                     this.settings.privateData
                 );
 
-                const oldApis = this.options.data.settings.privateData.APIs;
-                const newApis = this.options.result.settings.privateData.APIs;
-                const deletedApis = oldApis.filter(api => !newApis.find(elem => elem.id === api.id));
-                deletedApis.forEach(api => wwLib.wwPlugin.deleteCmsDataSet(api.id));
+                const oldRequests = this.options.data.settings.privateData.requests;
+                const newRequests = this.options.result.settings.privateData.requests;
+                const deletedRequests = oldRequests.filter(
+                    request => !newRequests.find(elem => elem.id === request.id)
+                );
+                deletedRequests.forEach(request => wwLib.wwPlugin.deleteCmsDataSet(request.id));
 
-                wwLib.wwPlugins.pluginSql.settings = plugin.settings;
+                wwLib.wwPlugins.pluginRestRequest.settings = plugin.settings;
                 this.options.data.settings = plugin.settings;
             } catch (err) {
                 wwLib.wwLog.error(err);
@@ -130,12 +134,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-sql-apis {
+.ww-popup-sql-requests {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .sql-apis {
+    .sql-requests {
         &__all {
             margin: 0 auto var(--ww-spacing-02) auto;
         }
