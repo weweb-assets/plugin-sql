@@ -147,20 +147,20 @@ export default {
         'request.client'() {
             switch (this.request.client) {
                 case 'pg':
-                    this.$set(this.request, 'port', 5432);
+                    this.request.port = '5432';
                     break;
                 case 'pg-redshift':
-                    this.$set(this.request, 'port', 5439);
+                    this.request.port = '5439';
                     break;
                 case 'mssql':
-                    this.$set(this.request, 'port', 1433);
+                    this.request.port = '1433';
                     break;
                 case 'mysql':
                 case 'mysql-mariadb':
-                    this.$set(this.request, 'port', 3306);
+                    this.request.port = '3306';
                     break;
                 case 'oracledb':
-                    this.$set(this.request, 'port', 1521);
+                    this.request.port = '1521';
                     break;
             }
         },

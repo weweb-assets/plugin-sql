@@ -21,8 +21,8 @@ wwLib.wwPopups.addStory('SQL_POPUP', {
 
 wwLib.wwPopups.addStory('SQL_REQUESTS_POPUP', {
     title: {
-        en: 'SQL - requests',
-        fr: 'SQL - requests',
+        en: 'SQL - Requests',
+        fr: 'SQL - Requests',
     },
     type: 'sqlRequestsPopup',
     size: wwLib.wwPopups.SIZES.MEDIUM,
