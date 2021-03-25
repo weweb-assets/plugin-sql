@@ -1,12 +1,12 @@
 <template>
-    <div class="ww-popup-sql-requests">
-        <button class="sql-requests__all ww-editor-button -primary" @click="addRequest">Add request</button>
-        <div class="sql-requests__row" v-for="(request, index) in settings.privateData.requests" :key="index">
-            <div class="paragraph-m">{{ request.name || request.url }}</div>
-            <button class="ww-editor-button -secondary -small m-auto-left" @click="editRequest(index, request)">
+    <div class="ww-popup-sql-queries">
+        <button class="sql-queries__all ww-editor-button -primary" @click="addQuery">Add query</button>
+        <div class="sql-queries__row" v-for="(query, index) in settings.privateData.queries" :key="index">
+            <div class="paragraph-m">{{ query.name || query.url }}</div>
+            <button class="ww-editor-button -secondary -small m-auto-left" @click="editQuery(index, query)">
                 Edit
             </button>
-            <div class="sql-requests__button-delete m-left" @click="deleteRequest(index)">
+            <div class="sql-queries__button-delete m-left" @click="deleteQuery(index)">
                 <wwEditorIcon name="delete" small />
             </div>
         </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: 'RequestsPopup',
+    name: 'QueriesPopup',
     props: {
         options: {
             type: Object,
@@ -38,32 +38,32 @@ export default {
     },
     computed: {
         isSetup() {
-            return this.settings.privateData.requests && this.settings.privateData.requests.length;
+            return this.settings.privateData.queries && this.settings.privateData.queries.length;
         },
     },
     methods: {
-        async addRequest() {
+        async addQuery() {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SQL_ADD_REQUEST_POPUP',
+                    firstPage: 'SQL_ADD_QUERY_POPUP',
                 });
-                this.settings.privateData.requests.push(result.request);
+                this.settings.privateData.queries.push(result.query);
             } catch (err) {
                 wwLib.wwLog.error(err);
             }
         },
-        async editRequest(index, request) {
+        async editQuery(index, query) {
             try {
                 const result = await wwLib.wwPopups.open({
-                    firstPage: 'SQL_EDIT_REQUEST_POPUP',
-                    data: { request },
+                    firstPage: 'SQL_EDIT_QUERY_POPUP',
+                    data: { query },
                 });
-                this.settings.privateData.requests.splice(index, 1, result.request);
+                this.settings.privateData.queries.splice(index, 1, result.query);
             } catch (err) {
                 wwLib.wwLog.error(err);
             }
         },
-        async deleteRequest(index) {
+        async deleteQuery(index) {
             const confirm = await wwLib.wwModals.open({
                 title: {
                     en: 'Delete data source?',
@@ -97,7 +97,7 @@ export default {
                 ],
             });
             if (!confirm) return;
-            this.settings.privateData.requests.splice(index, 1);
+            this.settings.privateData.queries.splice(index, 1);
         },
         async beforeNext() {
             this.options.setLoadingStatus(true);
@@ -110,12 +110,10 @@ export default {
                     this.settings.privateData
                 );
 
-                const oldRequests = this.options.data.settings.privateData.requests;
-                const newRequests = this.options.result.settings.privateData.requests;
-                const deletedRequests = oldRequests.filter(
-                    request => !newRequests.find(elem => elem.id === request.id)
-                );
-                deletedRequests.forEach(request => wwLib.wwPlugin.deleteCmsDataSet(request.id));
+                const oldQueries = this.options.data.settings.privateData.queries;
+                const newQueries = this.options.result.settings.privateData.queries;
+                const deletedQueries = oldQueries.filter(query => !newQueries.find(elem => elem.id === query.id));
+                deletedQueries.forEach(query => wwLib.wwPlugin.deleteCmsDataSet(query.id));
 
                 wwLib.wwPlugins.pluginSql.settings = plugin.settings;
                 this.options.data.settings = plugin.settings;
@@ -134,12 +132,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.ww-popup-sql-requests {
+.ww-popup-sql-queries {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .sql-requests {
+    .sql-queries {
         &__all {
             margin: 0 auto var(--ww-spacing-02) auto;
         }

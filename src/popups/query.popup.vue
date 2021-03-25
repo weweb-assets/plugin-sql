@@ -1,110 +1,110 @@
 <template>
-    <div class="ww-popup-sql-request">
-        <label class="sql-request__label caption-s" for="client-sql">
+    <div class="ww-popup-sql-query">
+        <label class="sql-query__label caption-s" for="client-sql">
             Client
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <wwEditorSelect
             type="text"
             name="client-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             :options="clientOptions"
-            v-model="request.client"
+            v-model="query.client"
         />
-        <label class="sql-request__label caption-s" for="name-sql">
+        <label class="sql-query__label caption-s" for="name-sql">
             Name
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="text"
             name="name-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="Name"
-            v-model="request.name"
+            v-model="query.name"
         />
-        <label class="sql-request__label caption-s" for="host-sql">
+        <label class="sql-query__label caption-s" for="host-sql">
             Host
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="text"
             name="host-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="host.com"
-            v-model="request.host"
+            v-model="query.host"
         />
-        <label class="sql-request__label caption-s" for="port-sql">
+        <label class="sql-query__label caption-s" for="port-sql">
             Port
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="number"
             name="port-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="5432"
-            v-model="request.port"
+            v-model="query.port"
         />
-        <label class="sql-request__label caption-s" for="database-sql">
+        <label class="sql-query__label caption-s" for="database-sql">
             Database
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="text"
             name="database-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="SchoolDB"
-            v-model="request.database"
+            v-model="query.database"
         />
-        <label class="sql-request__label caption-s" for="user-sql">
+        <label class="sql-query__label caption-s" for="user-sql">
             User
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="text"
             name="user-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="admin"
-            v-model="request.user"
+            v-model="query.user"
         />
-        <label class="sql-request__label caption-s" for="password-sql">
+        <label class="sql-query__label caption-s" for="password-sql">
             Password
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="password"
             name="password-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="********"
-            v-model="request.password"
+            v-model="query.password"
         />
-        <label class="sql-request__label caption-s" for="query-sql">
+        <label class="sql-query__label caption-s" for="query-sql">
             Query
-            <div class="sql-request__label-required">required</div>
+            <div class="sql-query__label-required">required</div>
         </label>
         <input
             type="text"
             name="query-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="select * from Student"
-            v-model="request.query"
+            v-model="query.query"
         />
-        <label class="sql-request__label caption-s" for="display-by-sql">
+        <label class="sql-query__label caption-s" for="display-by-sql">
             Display by
-            <div class="sql-request__label-required">optional</div>
+            <div class="sql-query__label-required">optional</div>
         </label>
         <input
             type="text"
             name="display-by-sql"
-            class="sql-request__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -large"
             placeholder="id"
-            v-model="request.displayBy"
+            v-model="query.displayBy"
         />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'requestPopup',
+    name: 'queryPopup',
     props: {
         options: {
             type: Object,
@@ -123,7 +123,7 @@ export default {
                 { label: 'Oracle', value: 'oracledb' },
                 { label: 'Amazon Redshift', value: 'pg-redshift' },
             ],
-            request: {
+            query: {
                 id: wwLib.wwUtils.getUid(),
                 client: undefined,
                 host: undefined,
@@ -144,23 +144,23 @@ export default {
                 this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
             },
         },
-        'request.client'() {
-            switch (this.request.client) {
+        'query.client'() {
+            switch (this.query.client) {
                 case 'pg':
-                    this.request.port = '5432';
+                    this.query.port = '5432';
                     break;
                 case 'pg-redshift':
-                    this.request.port = '5439';
+                    this.query.port = '5439';
                     break;
                 case 'mssql':
-                    this.request.port = '1433';
+                    this.query.port = '1433';
                     break;
                 case 'mysql':
                 case 'mysql-mariadb':
-                    this.request.port = '3306';
+                    this.query.port = '3306';
                     break;
                 case 'oracledb':
-                    this.request.port = '1521';
+                    this.query.port = '1521';
                     break;
             }
         },
@@ -168,39 +168,39 @@ export default {
     computed: {
         isSetup() {
             return (
-                !!this.request.host &&
-                !!this.request.host.length &&
-                !!this.request.port &&
-                !!this.request.port.length &&
-                !!this.request.user &&
-                !!this.request.user.length &&
-                !!this.request.password &&
-                !!this.request.password.length &&
-                !!this.request.database &&
-                !!this.request.database.length &&
-                !!this.request.query &&
-                !!this.request.query.length &&
-                !!this.request.name &&
-                !!this.request.name.length
+                !!this.query.host &&
+                !!this.query.host.length &&
+                !!this.query.port &&
+                !!this.query.port.length &&
+                !!this.query.user &&
+                !!this.query.user.length &&
+                !!this.query.password &&
+                !!this.query.password.length &&
+                !!this.query.database &&
+                !!this.query.database.length &&
+                !!this.query.query &&
+                !!this.query.query.length &&
+                !!this.query.name &&
+                !!this.query.name.length
             );
         },
     },
     created() {
-        this.request = this.options.data.request || this.request;
-        if (!this.request.client) this.request.client = 'pg';
-        this.options.result.request = this.request;
+        this.query = this.options.data.query || this.query;
+        if (!this.query.client) this.query.client = 'pg';
+        this.options.result.query = this.query;
         this.options.setButtonState('SAVE', this.isSetup ? 'ok' : 'disabled');
     },
 };
 </script>
 
 <style scoped lang="scss">
-.ww-popup-sql-request {
+.ww-popup-sql-query {
     position: relative;
     display: flex;
     flex-direction: column;
     padding: var(--ww-spacing-03) 0;
-    .sql-request {
+    .sql-query {
         &__label {
             display: flex;
             align-items: center;

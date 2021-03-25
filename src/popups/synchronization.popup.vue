@@ -4,22 +4,22 @@
             <div v-if="!isFetching">Synchronize all</div>
             <div v-else>Fetching...</div>
         </button>
-        <div class="sql-sync__row" v-for="(request, index) in settings.privateData.requests" :key="index">
-            <div class="paragraph-m">{{ request.name || request.url }}</div>
+        <div class="sql-sync__row" v-for="(query, index) in settings.privateData.queries" :key="index">
+            <div class="paragraph-m">{{ query.name || query.url }}</div>
             <div class="caption-m m-auto-left">
-                <template v-if="!isRequestFetching(request)">
-                    <template v-if="getSource(request).lastSyncDate">
-                        {{ getSource(request).lastSyncDate | dateFromNow }}
+                <template v-if="!isQueryFetching(query)">
+                    <template v-if="getSource(query).lastSyncDate">
+                        {{ getSource(query).lastSyncDate | dateFromNow }}
                     </template>
                     <template v-else>never synchronized</template>
                 </template>
             </div>
             <button
-                :disabled="isRequestFetching(request)"
+                :disabled="isQueryFetching(query)"
                 class="ww-editor-button -primary -green -small m-left"
-                @click="sync(request)"
+                @click="sync(query)"
             >
-                <div v-if="!isRequestFetching(request)">Synchronize request</div>
+                <div v-if="!isQueryFetching(query)">Synchronize query</div>
                 <div v-else>Fetching...</div>
             </button>
         </div>
@@ -48,35 +48,35 @@ export default {
     data() {
         return {
             isFetching: false,
-            requestsFetching: [],
+            queriesFetching: [],
             settings: {
                 privateData: {},
             },
         };
     },
     methods: {
-        getSource(request) {
-            return wwLib.$store.getters['cms/getData'][request.id] || {};
+        getSource(query) {
+            return wwLib.$store.getters['cms/getData'][query.id] || {};
         },
-        isRequestFetching(request) {
-            return this.requestsFetching.indexOf(request.id) !== -1;
+        isQueryFetching(query) {
+            return this.queriesFetching.indexOf(query.id) !== -1;
         },
-        requestFetching(request, value) {
+        queryFetching(query, value) {
             if (value) {
-                this.requestsFetching.push(request.id);
+                this.queriesFetching.push(query.id);
             } else {
-                const index = this.requestsFetching.indexOf(request.id);
-                if (index !== -1) this.requestsFetching.splice(index, 1);
+                const index = this.queriesFetching.indexOf(query.id);
+                if (index !== -1) this.queriesFetching.splice(index, 1);
             }
         },
-        async sync(request) {
-            this.requestFetching(request, true);
-            await wwLib.wwPlugins.pluginSql.sync(request);
-            this.requestFetching(request, false);
+        async sync(query) {
+            this.queryFetching(query, true);
+            await wwLib.wwPlugins.pluginSql.sync(query);
+            this.queryFetching(query, false);
         },
         async syncAll() {
             this.isFetching = true;
-            for (const request of this.settings.privateData.requests) await this.sync(request);
+            for (const query of this.settings.privateData.queries) await this.sync(query);
             this.isFetching = false;
         },
     },

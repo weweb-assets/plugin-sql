@@ -10,7 +10,7 @@ export default {
     settings: {
         data: {},
         privateData: {
-            requests: [],
+            queries: [],
         },
     },
     /* wwEditor:end */
@@ -21,8 +21,8 @@ export default {
         /* wwEditor:start */
         const plugin = wwLib.wwPlugins.pluginSql;
         plugin.settings = (await wwLib.wwPlugin.getSettings(plugin.id)) || this.settings;
-        if (!plugin.settings.privateData.requests) plugin.settings.privateData.requests = [];
-        if (plugin.isNew && !plugin.settings.privateData.requests.length) {
+        if (!plugin.settings.privateData.queries) plugin.settings.privateData.queries = [];
+        if (plugin.isNew && !plugin.settings.privateData.queries.length) {
             this.sidebarButton();
         }
         /* wwEditor:end */
@@ -31,13 +31,13 @@ export default {
     /*=============================================m_ÔÔ_m=============================================\
         SYNCHRONIZE
     \================================================================================================*/
-    async sync(request) {
+    async sync(query) {
         try {
-            await wwLib.wwPlugin.saveCmsDataSet(this.settings.id, request.id, request.name, request.displayBy, 'Sql');
+            await wwLib.wwPlugin.saveCmsDataSet(this.settings.id, query.id, query.name, query.displayBy, 'Sql');
 
             wwLib.wwNotification.open({
                 text: {
-                    en: `Request "${request.name}" succesfully fetched`,
+                    en: `Query "${query.name}" succesfully fetched`,
                 },
                 color: 'green',
             });
@@ -53,7 +53,7 @@ export default {
         }
     },
     async syncAll() {
-        for (const request of this.settings.privateData.requests) await this.sync(request);
+        for (const query of this.settings.privateData.queries) await this.sync(query);
     },
     /*=============================================m_ÔÔ_m=============================================\
         SIDEBAR POPUP
@@ -62,9 +62,9 @@ export default {
         try {
             const { id, settings, isNew } = wwLib.wwPlugins.pluginSql;
             const isSetup = !isNew;
-            const isFirstTime = !settings.privateData.requests.length;
+            const isFirstTime = !settings.privateData.queries.length;
             await wwLib.wwPopups.open({
-                firstPage: isSetup ? 'SQL_POPUP' : 'SQL_REQUESTS_POPUP',
+                firstPage: isSetup ? 'SQL_POPUP' : 'SQL_QUERIES_POPUP',
                 data: {
                     isFirstTime,
                     pluginId: id,
