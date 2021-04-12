@@ -86,7 +86,7 @@
             class="sql-query__input caption-m ww-editor-input -textarea -large"
             placeholder="select * from Student"
             v-model="query.query"
-            rows="5"
+            rows="3"
         />
         <label class="sql-query__label caption-s" for="display-by-sql">
             Display by
@@ -197,8 +197,6 @@ export default {
 <style scoped lang="scss">
 .ww-popup-sql-query {
     position: relative;
-    display: flex;
-    flex-direction: column;
     padding: var(--ww-spacing-03) 0;
     .sql-query {
         &__label {
@@ -218,6 +216,7 @@ export default {
         }
         &__input {
             margin-bottom: var(--ww-spacing-03);
+            width: 100%;
         }
         &__select {
             min-width: 65px;
