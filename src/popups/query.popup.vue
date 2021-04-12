@@ -81,12 +81,12 @@
             Query
             <div class="sql-query__label-required">required</div>
         </label>
-        <input
-            type="text"
+        <textarea
             name="query-sql"
-            class="sql-query__input caption-m ww-editor-input -large"
+            class="sql-query__input caption-m ww-editor-input -textarea -large"
             placeholder="select * from Student"
             v-model="query.query"
+            rows="5"
         />
         <label class="sql-query__label caption-s" for="display-by-sql">
             Display by
