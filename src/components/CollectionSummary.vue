@@ -1,7 +1,9 @@
 <template>
-    <div class="ghost-collection-summary">
-        <div class="ghost-collection-summary__elem caption-s">Method: {{ config.method || '-' }}</div>
-        <div class="ghost-collection-summary__elem caption-s">Ressource: {{ config.ressource || '-' }}</div>
+    <div class="sql-collection-summary">
+        <div class="sql-collection-summary__elem caption-s">Client: {{ config.client || '-' }}</div>
+        <div class="sql-collection-summary__elem caption-s">Host: {{ config.host || '-' }}</div>
+        <div class="sql-collection-summary__elem caption-s">Database: {{ config.database || '-' }}</div>
+        <div class="sql-collection-summary__elem caption-s">Query: {{ config.query || '-' }}</div>
     </div>
 </template>
 
@@ -21,14 +23,21 @@ export default {
     },
     computed: {
         isSetup() {
-            return !!this.config.ressource && !!this.config.method;
+            return (
+                !!this.config.host &&
+                !!this.config.port &&
+                !!this.config.user &&
+                !!this.config.password &&
+                !!this.config.database &&
+                !!this.config.query
+            );
         },
     },
 };
 </script>
 
 <style lang="scss" scoped>
-.ghost-collection-summary {
+.sql-collection-summary {
     &__elem {
         margin-bottom: var(--ww-spacing-01);
     }

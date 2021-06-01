@@ -10,6 +10,7 @@
                 :value="query.host"
                 @input="setProp('host', $event)"
                 placeholder="host.com"
+                v-on:keyup.native.enter="$emit('next')"
                 large
             />
         </wwEditorFormRow>
@@ -20,6 +21,7 @@
                 :value="query.port"
                 @input="setProp('port', $event)"
                 placeholder="5432"
+                v-on:keyup.native.enter="$emit('next')"
                 large
             />
         </wwEditorFormRow>
@@ -30,6 +32,7 @@
                 :value="query.database"
                 @input="setProp('database', $event)"
                 placeholder="SchoolDB"
+                v-on:keyup.native.enter="$emit('next')"
                 large
             />
         </wwEditorFormRow>
@@ -40,6 +43,7 @@
                 :value="query.user"
                 @input="setProp('user', $event)"
                 placeholder="admin"
+                v-on:keyup.native.enter="$emit('next')"
                 large
             />
         </wwEditorFormRow>
@@ -50,6 +54,7 @@
                 :value="query.password"
                 @input="setProp('password', $event)"
                 placeholder="********"
+                v-on:keyup.native.enter="$emit('next')"
                 large
             />
         </wwEditorFormRow>

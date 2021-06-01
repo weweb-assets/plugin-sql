@@ -2,4 +2,4 @@
 
 This plugin will add:
 
-Ghost as a collection source
+SQL as a collection source
