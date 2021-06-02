@@ -92,20 +92,20 @@ export default {
         'query.client'() {
             switch (this.query.client) {
                 case 'pg':
-                    this.query.port = '5432';
+                    this.setProp('port', '5432');
                     break;
                 case 'pg-redshift':
-                    this.query.port = '5439';
+                    this.setProp('port', '5439');
                     break;
                 case 'mssql':
-                    this.query.port = '1433';
+                    this.setProp('port', '1433');
                     break;
                 case 'mysql':
                 case 'mysql-mariadb':
-                    this.query.port = '3306';
+                    this.setProp('port', '3306');
                     break;
                 case 'oracledb':
-                    this.query.port = '1521';
+                    this.setProp('port', '1521');
                     break;
             }
         },
