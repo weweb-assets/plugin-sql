@@ -1,5 +1,5 @@
-<iframe src="https://www.youtube-nocookie.com/embed/76CMCIW-wGk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Use any SQL database as a data source in WeWeb, enabling you to use your raw data!
 
-This plugin will add:
+This plugin will let you:
 
-SQL as a collection source
+- Use an SQL database as a collection source in WeWeb
