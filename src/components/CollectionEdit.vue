@@ -1,65 +1,71 @@
 <template>
     <div class="sql-collection-edit">
         <wwEditorFormRow label="Client" required>
-            <wwEditorSelect :options="clientOptions" :value="query.client" @input="setProp('client', $event)" large />
+            <wwEditorSelect
+                :options="clientOptions"
+                :model-value="query.client"
+                large
+                @update:modelValue="setProp('client', $event)"
+            />
         </wwEditorFormRow>
         <wwEditorFormRow label="Host" required>
             <wwEditorFormInput
                 type="text"
                 name="host"
-                :value="query.host"
-                @input="setProp('host', $event)"
+                :model-value="query.host"
                 placeholder="host.com"
-                v-on:keyup.native.enter="$emit('next')"
                 large
+                @update:modelValue="setProp('host', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Port" required>
             <wwEditorFormInput
                 type="number"
                 name="port"
-                :value="query.port"
-                @input="setProp('port', $event)"
+                :model-value="query.port"
                 placeholder="5432"
-                v-on:keyup.native.enter="$emit('next')"
                 large
+                @update:modelValue="setProp('port', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Database" required>
             <wwEditorFormInput
                 type="text"
                 name="database"
-                :value="query.database"
-                @input="setProp('database', $event)"
+                :model-value="query.database"
                 placeholder="SchoolDB"
-                v-on:keyup.native.enter="$emit('next')"
                 large
+                @update:modelValue="setProp('database', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="User" required>
             <wwEditorFormInput
                 type="text"
                 name="user"
-                :value="query.user"
-                @input="setProp('user', $event)"
+                :model-value="query.user"
                 placeholder="admin"
-                v-on:keyup.native.enter="$emit('next')"
                 large
+                @update:modelValue="setProp('user', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Password" required>
             <wwEditorFormInput
                 type="password"
                 name="password"
-                :value="query.password"
-                @input="setProp('password', $event)"
+                :model-value="query.password"
                 placeholder="********"
-                v-on:keyup.native.enter="$emit('next')"
                 large
+                @update:modelValue="setProp('password', $event)"
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Query" required>
-            <wwCodeEditor name="query" :value="query.query" @input="setProp('query', $event)" large language="sql" />
+            <wwCodeEditor
+                name="query"
+                :model-value="query.query"
+                large
+                language="sql"
+                @update:modelValue="setProp('query', $event)"
+            />
         </wwEditorFormRow>
     </div>
 </template>
@@ -67,9 +73,9 @@
 <script>
 export default {
     props: {
-        plugin: { type: Object, required: true },
         config: { type: Object, required: true },
     },
+    emits: ['update:config'],
     data() {
         return {
             clientOptions: [
@@ -82,13 +88,21 @@ export default {
             ],
         };
     },
-    watch: {
-        isSetup: {
-            immediate: true,
-            handler(value) {
-                this.$emit('update-is-valid', value);
-            },
+    computed: {
+        query() {
+            return {
+                client: 'pg',
+                host: undefined,
+                port: '5432',
+                user: undefined,
+                password: undefined,
+                database: undefined,
+                query: 'SELECT * FROM Student',
+                ...this.config,
+            };
         },
+    },
+    watch: {
         'query.client'() {
             switch (this.query.client) {
                 case 'pg':
@@ -110,33 +124,9 @@ export default {
             }
         },
     },
-    computed: {
-        isSetup() {
-            return (
-                !!this.query.host &&
-                !!this.query.port &&
-                !!this.query.user &&
-                !!this.query.password &&
-                !!this.query.database &&
-                !!this.query.query
-            );
-        },
-        query() {
-            return {
-                client: 'pg',
-                host: undefined,
-                port: '5432',
-                user: undefined,
-                password: undefined,
-                database: undefined,
-                query: 'SELECT * FROM Student',
-                ...this.config,
-            };
-        },
-    },
     methods: {
         setProp(key, value) {
-            this.$emit('update-config', { ...this.query, [key]: value });
+            this.$emit('update:config', { ...this.query, [key]: value });
         },
     },
 };
