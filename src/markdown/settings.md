@@ -1,3 +1,3 @@
-<iframe src="https://www.youtube-nocookie.com/embed/76CMCIW-wGk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+# How to configure the SQL plugin
 
-Get api key from your profile.
+The SQL plugin don't need any configuration at the plugin level. To continue, add a collection.
