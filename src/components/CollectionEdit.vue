@@ -1,7 +1,7 @@
 <template>
     <div class="sql-collection-edit">
         <wwEditorFormRow label="Client" required>
-            <wwEditorSelect
+            <wwEditorInputTextSelect
                 :options="clientOptions"
                 :model-value="query.client"
                 large
@@ -9,7 +9,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Host" required>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 name="host"
                 :model-value="query.host"
@@ -19,7 +19,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Port" required>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="number"
                 name="port"
                 :model-value="query.port"
@@ -29,7 +29,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Database" required>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 name="database"
                 :model-value="query.database"
@@ -39,7 +39,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="User" required>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="text"
                 name="user"
                 :model-value="query.user"
@@ -49,7 +49,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Password" required>
-            <wwEditorFormInput
+            <wwEditorInputText
                 type="password"
                 name="password"
                 :model-value="query.password"
@@ -59,7 +59,7 @@
             />
         </wwEditorFormRow>
         <wwEditorFormRow label="Query" required>
-            <wwCodeEditor
+            <wwEditorInputCode
                 name="query"
                 :model-value="query.query"
                 large
