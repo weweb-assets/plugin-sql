@@ -16,8 +16,11 @@ export default {
         return { data: null, error: null };
     },
     /* wwEditor:end */
-    async sqlRequest(connection, query) {
+    async sqlRequest(connection, query, wwUtils) {
         const websiteId = wwLib.wwWebsiteData.getInfo().id;
+        /* wwEditor:start */
+        wwUtils.log({ label: 'Query', preview: query });
+        /* wwEditor:end */
         const { data } = await axios.post(`${wwLib.wwApiRequests._getPluginsUrl()}/designs/${websiteId}/sql/query`, {
             connection,
             query,
