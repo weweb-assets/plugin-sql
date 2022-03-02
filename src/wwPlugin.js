@@ -19,7 +19,7 @@ export default {
     async sqlRequest(connection, query, wwUtils) {
         const websiteId = wwLib.wwWebsiteData.getInfo().id;
         /* wwEditor:start */
-        wwUtils.log({ label: 'Query', preview: query });
+        wwUtils && wwUtils.log({ label: 'Query', preview: query });
         /* wwEditor:end */
         const { data } = await axios.post(`${wwLib.wwApiRequests._getPluginsUrl()}/designs/${websiteId}/sql/query`, {
             connection,
