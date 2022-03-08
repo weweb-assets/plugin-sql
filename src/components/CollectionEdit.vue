@@ -15,7 +15,7 @@
             type="code"
             required
             :model-value="query.query"
-            bindable
+            :bindable="collection.mode === 'dynamic'"
             language="sql"
             @update:modelValue="setProp('query', $event)"
         />
@@ -26,6 +26,7 @@
 export default {
     props: {
         plugin: { type: Object, required: true },
+        collection: { type: Object, required: true },
         config: { type: Object, required: true },
     },
     emits: ['update:config'],
