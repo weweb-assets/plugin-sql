@@ -24,7 +24,7 @@
 export default {
     props: {
         plugin: { type: Object, required: true },
-        args: { type: Object, default: () => ({ connection: null, query: null }) },
+        args: { type: Object, required: true },
     },
     emits: ['update:args'],
     data() {
