@@ -26,14 +26,10 @@ export default {
             },
         },
     },
-    functions: [
+    actions: [
         {
             name: 'SQL Request',
             code: 'sqlRequest',
-            parameters: [
-                { name: 'connection', type: 'string' },
-                { name: 'query', type: 'string' },
-            ],
             isAsync: true,
             /* wwEditor:start */
             edit: () => import('./src/components/SQLRequest.vue'),

@@ -24,7 +24,7 @@
 export default {
     props: {
         plugin: { type: Object, required: true },
-        args: { type: Array, default: () => [null, null] },
+        args: { type: Object, default: () => ({ connection: null, query: null }) },
     },
     emits: ['update:args'],
     data() {
@@ -34,10 +34,10 @@ export default {
     },
     computed: {
         connection() {
-            return this.args[0];
+            return this.args.connection;
         },
         query() {
-            return this.args[1];
+            return this.args.query;
         },
         connectionOptions() {
             const connections = this.plugin.settings.privateData.connections || [];
@@ -49,10 +49,10 @@ export default {
     },
     methods: {
         setConnection(connection) {
-            this.$emit('update:args', [connection, this.query]);
+            this.$emit('update:args', { ...this.args, connection });
         },
         setQuery(query) {
-            this.$emit('update:args', [this.connection, query]);
+            this.$emit('update:args', { ...this.args, query });
         },
         addConnection() {
             // eslint-disable-next-line vue/custom-event-name-casing

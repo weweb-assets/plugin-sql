@@ -16,7 +16,7 @@ export default {
         return { data: null, error: null };
     },
     /* wwEditor:end */
-    async sqlRequest(connection, query, wwUtils) {
+    async sqlRequest({ connection, query }, wwUtils) {
         const websiteId = wwLib.wwWebsiteData.getInfo().id;
         /* wwEditor:start */
         wwUtils && wwUtils.log({ label: 'Query', preview: query });
