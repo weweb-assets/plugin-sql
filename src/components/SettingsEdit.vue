@@ -100,7 +100,6 @@ export default {
                 { label: 'MSSQL', value: 'mssql' },
                 { label: 'MySQL', value: 'mysql' },
                 { label: 'MariaDB', value: 'mysql-mariadb' },
-                { label: 'Oracle', value: 'oracledb' },
                 { label: 'Amazon Redshift', value: 'pg-redshift' },
             ],
             newConnection: {
@@ -144,9 +143,6 @@ export default {
                     case 'mysql':
                     case 'mysql-mariadb':
                         connections[index].port = '3306';
-                        break;
-                    case 'oracledb':
-                        connections[index].port = '1521';
                         break;
                 }
             }

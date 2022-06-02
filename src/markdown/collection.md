@@ -1,6 +1,6 @@
 Here are all the fields you need to enter:
 
-1. **Client:** your database client (MySQL, PostgreSQL, MSSQL, MariaDB, Oracle, Amazon Redshift)
+1. **Client:** your database client (MySQL, PostgreSQL, MSSQL, MariaDB, Amazon Redshift)
 2. **Host:** your DB host
 3. **Port:** your DB port
 4. **Database:** your database name on the server
