@@ -165,10 +165,9 @@ export default {
             try {
                 const connection = this.connections[index];
                 const websiteId = wwLib.wwWebsiteData.getInfo().id;
-                await axios.post(
+                await wwAxios.post(
                     `${wwLib.wwApiRequests._getPluginsUrl()}/designs/${websiteId}/sql/test`,
-                    { connection },
-                    { headers: wwLib.wwApiRequests._getAuthHeader() }
+                    { connection }
                 );
                 wwLib.wwNotification.open({ text: 'Connection to database succeeded.', color: 'green' });
             } catch (err) {
