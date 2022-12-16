@@ -61,6 +61,13 @@
                     @update:modelValue="setConnectionProp('database', index, $event)"
                 />
             </wwEditorFormRow>
+            <wwEditorFormRow label="Use SSL" required>
+                <wwEditorInputSwitch
+                    :model-value="connection.useSsl"
+                    small
+                    @update:modelValue="setConnectionProp('useSsl', index, $event)"
+                />
+            </wwEditorFormRow>
             <div class="flex">
                 <button
                     type="button"
@@ -109,6 +116,7 @@ export default {
                 user: undefined,
                 password: undefined,
                 database: undefined,
+                useSsl: true,
                 query: 'SELECT * FROM Student',
             },
         };
@@ -165,10 +173,9 @@ export default {
             try {
                 const connection = this.connections[index];
                 const websiteId = wwLib.wwWebsiteData.getInfo().id;
-                await wwAxios.post(
-                    `${wwLib.wwApiRequests._getPluginsUrl()}/designs/${websiteId}/sql/test`,
-                    { connection }
-                );
+                await wwAxios.post(`${wwLib.wwApiRequests._getPluginsUrl()}/designs/${websiteId}/sql/test`, {
+                    connection,
+                });
                 wwLib.wwNotification.open({ text: 'Connection to database succeeded.', color: 'green' });
             } catch (err) {
                 wwLib.wwLog.error(err);
