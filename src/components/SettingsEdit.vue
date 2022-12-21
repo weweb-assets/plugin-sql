@@ -123,12 +123,11 @@ export default {
     },
     computed: {
         connections() {
-            return (
-                this.settings.privateData.connections.map(co => ({
-                    ...co,
-                    useSsl: undefined === co.useSsl ? true : co.useSsl,
-                })) || []
-            );
+            if (!this.settings.privateData.connections) return [];
+            return this.settings.privateData.connections.map(co => ({
+                ...co,
+                useSsl: undefined === co.useSsl ? true : co.useSsl,
+            }));
         },
     },
     methods: {
