@@ -195,7 +195,7 @@ export default {
     display: flex;
     flex-direction: column;
     &__separator {
-        border: 1px solid var(--ww-color-theme-dark-100);
+        border: 1px solid var(--ww-color-border);
     }
 }
 </style>
