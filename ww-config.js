@@ -39,6 +39,22 @@ export default {
             getIsValid({ connection, query }) {
                 return !!connection && !!query;
             },
+            copilot: {
+                description: 'Execute a SQL query on the specified database connection',
+                returns: 'array | object',
+                schema: {
+                    connection: {
+                        type: 'string',
+                        description: 'The ID of the database connection to use',
+                        bindable: false
+                    },
+                    query: {
+                        type: 'string',
+                        description: 'The SQL query to execute',
+                        bindable: true
+                    }
+                }
+            },
             /* wwEditor:end */
         },
     ],
