@@ -1,0 +1,186 @@
+{
+    "schemaVersion": 1,
+    "features": {
+        "datasource": true
+    },
+    "settings": {
+        "fields": [
+            {
+                "key": "connections",
+                "label": "Connections",
+                "type": "records",
+                "operation": "sql.connections",
+                "required": true,
+                "rowFields": [
+                    {
+                        "key": "name",
+                        "label": "Given name",
+                        "type": "text"
+                    },
+                    {
+                        "key": "client",
+                        "label": "Client",
+                        "type": "choice",
+                        "required": true,
+                        "initial": "pg",
+                        "choices": [
+                            {
+                                "value": "pg",
+                                "label": "PostgreSQL"
+                            },
+                            {
+                                "value": "mssql",
+                                "label": "MSSQL"
+                            },
+                            {
+                                "value": "mysql",
+                                "label": "MySQL"
+                            },
+                            {
+                                "value": "mysql-mariadb",
+                                "label": "MariaDB"
+                            },
+                            {
+                                "value": "pg-redshift",
+                                "label": "Amazon Redshift"
+                            }
+                        ],
+                        "updates": [
+                            {
+                                "equals": "pg",
+                                "field": "port",
+                                "value": "5432"
+                            },
+                            {
+                                "equals": "mssql",
+                                "field": "port",
+                                "value": "1433"
+                            },
+                            {
+                                "equals": "mysql",
+                                "field": "port",
+                                "value": "3306"
+                            },
+                            {
+                                "equals": "mysql-mariadb",
+                                "field": "port",
+                                "value": "3306"
+                            },
+                            {
+                                "equals": "pg-redshift",
+                                "field": "port",
+                                "value": "5439"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "host",
+                        "label": "Host",
+                        "type": "text",
+                        "required": true,
+                        "placeholder": "host.com"
+                    },
+                    {
+                        "key": "port",
+                        "label": "Port",
+                        "type": "text",
+                        "required": true,
+                        "initial": "5432"
+                    },
+                    {
+                        "key": "user",
+                        "label": "User",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "key": "password",
+                        "label": "Password",
+                        "type": "secret",
+                        "required": true
+                    },
+                    {
+                        "key": "database",
+                        "label": "Database",
+                        "type": "text",
+                        "required": true
+                    },
+                    {
+                        "key": "useSsl",
+                        "label": "Use SSL",
+                        "type": "boolean",
+                        "initial": true
+                    }
+                ]
+            }
+        ],
+        "summary": [
+            {
+                "field": "connections"
+            }
+        ]
+    },
+    "collection": {
+        "fields": [
+            {
+                "key": "connection",
+                "label": "Connection",
+                "type": "choice",
+                "operation": "sql.connections",
+                "openSettingsLabel": "Add connection",
+                "required": true,
+                "placeholder": "Select a connection"
+            },
+            {
+                "key": "query",
+                "label": "Query",
+                "type": "source",
+                "language": "sql",
+                "required": true,
+                "bindableIn": "dynamicCollection",
+                "initial": "SELECT * FROM Student"
+            }
+        ],
+        "summary": [
+            {
+                "field": "connection",
+                "label": "Connection",
+                "empty": "Not found"
+            },
+            {
+                "field": "query",
+                "label": "Query",
+                "empty": "-"
+            }
+        ]
+    },
+    "actions": [
+        {
+            "name": "SQL Request",
+            "code": "sqlRequest",
+            "isAsync": true,
+            "validation": "requiredFields",
+            "form": {
+                "fields": [
+                    {
+                        "key": "connection",
+                        "label": "Connection",
+                        "type": "choice",
+                        "operation": "sql.connections",
+                        "openSettingsLabel": "Add connection",
+                        "required": true,
+                        "placeholder": "Select a connection"
+                    },
+                    {
+                        "key": "query",
+                        "label": "Query",
+                        "type": "source",
+                        "language": "sql",
+                        "required": true,
+                        "bindable": true
+                    }
+                ]
+            }
+        }
+    ]
+}
